@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>340</width>
+    <height>255</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ModbusTCP GUI</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>332</width>
+        <height>282</height>
+       </size>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tab_connect">
+       <attribute name="title">
+        <string>Connect</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QWidget" name="widget_2" native="true">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Unit ID</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Timeout</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Host Address</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Port Number</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLineEdit" name="lineEdit_2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>127.0.0.1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLineEdit" name="lineEdit_3">
+             <property name="text">
+              <string>502</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QLineEdit" name="lineEdit_4">
+             <property name="text">
+              <string>255</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="text">
+              <string>10</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Connect</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_read">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <attribute name="title">
+        <string>Read</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QComboBox" name="comboBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <item>
+           <property name="text">
+            <string>Serial Number</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Chargepoint ID</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Brand</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Model</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Firmware Version</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Date</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Time</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Chargepoint Power</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Number of Phases</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Chargepoint State</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Charging State</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Equipment State</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cable State</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>EVSE Fault Code</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Current L1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Current L2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Current L3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Voltage L1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Voltage L2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Voltage L3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Active Power Total</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Active Power L1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Active Power L2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Active Power L3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Meter Reading</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Session Max Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>EVSE Min Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>EVSE Max Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cable Max Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Session Energy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Session Start Time</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Session End Time</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Failsafe Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Failsafe Timeout</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Charging Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Alive Register</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_6" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_19">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Data</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>OK</string>
+          </property>
+          <property name="shortcut">
+           <string>Return</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_write">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <attribute name="title">
+        <string>Write</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QComboBox" name="comboBox_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <item>
+           <property name="text">
+            <string>Failsafe Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Failsafe Timeout</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Charging Current</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Alive Register</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_9" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_21">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Data</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>OK</string>
+          </property>
+          <property name="shortcut">
+           <string>Return</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>lineEdit_2</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
