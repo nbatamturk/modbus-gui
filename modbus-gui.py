@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 import sys
+import threading
+import time
 from abc import ABC
+from enum import Enum
 
-from PyQt5.QtGui import QIntValidator
-from PyQt5.QtWidgets import QShortcut
-from controller import Controller
-from PyQt5 import QtCore, QtGui, QtWidgets, Qt
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QObject, qDebug
 
-import enum
+from controller import Controller
 
 
-class DataType(enum):
+class DataType(Enum):
     UINT16 = "uint16"
     UINT32 = "uint32"
     STRING = "string"
 
 
-class RegisterType(enum):
+class RegisterType(Enum):
     INPUT = "R"
     HOLDING = "R/W"
 
@@ -49,7 +49,7 @@ class ChargepointIDRegister(Register):
 class BrandRegister(Register):
     def __init__(self):
         self.addr = 190
-        self.nb = 50
+        self.nb = 10
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.STRING
 
@@ -365,11 +365,28 @@ registers = {
     "Alive Register": AliveRegister
 }
 
+
+def convert_to(data_type, read_data):
+    if data_type == DataType.UINT16:
+        text = " ".join(str(x) for x in read_data)
+    elif data_type == DataType.UINT32:
+        result = 0
+        multiplier = 0
+        read_data.reverse()
+        for chunk in read_data:
+            result += int(chunk) * (2 ** multiplier)
+            multiplier += 16
+        text = str(result)
+    elif data_type == DataType.STRING:
+        text = "".join(chr(x) for x in read_data)
+    return text
+
+
 class Ui_MainWindow(QObject):
     def __init__(self):
         super().__init__()
         self.c = Controller()
-        self.read_data = []
+        self.is_reading = False
 
     def setupUi(self, MainWindow):
         # Main Window
@@ -401,9 +418,6 @@ class Ui_MainWindow(QObject):
         self.widget_2.setObjectName("widget_2")
         self.gridLayout = QtWidgets.QGridLayout(self.widget_2)
         self.gridLayout.setObjectName("gridLayout")
-        self.label_3 = QtWidgets.QLabel(self.widget_2)
-        self.label_3.setObjectName("label_3")
-        self.gridLayout.addWidget(self.label_3, 2, 2, 1, 1)
         self.label_4 = QtWidgets.QLabel(self.widget_2)
         self.label_4.setObjectName("label_4")
         self.gridLayout.addWidget(self.label_4, 3, 2, 1, 1)
@@ -421,10 +435,6 @@ class Ui_MainWindow(QObject):
         self.port_edit.setAlignment(QtCore.Qt.AlignCenter)
         self.port_edit.setObjectName("lineEdit_3")
         self.gridLayout.addWidget(self.port_edit, 1, 4, 1, 1)
-        self.unit_id_edit = QtWidgets.QLineEdit(self.widget_2)
-        self.unit_id_edit.setAlignment(QtCore.Qt.AlignCenter)
-        self.unit_id_edit.setObjectName("lineEdit_4")
-        self.gridLayout.addWidget(self.unit_id_edit, 2, 4, 1, 1)
         self.timeout_edit = QtWidgets.QLineEdit(self.widget_2)
         self.timeout_edit.setAlignment(QtCore.Qt.AlignCenter)
         self.timeout_edit.setObjectName("lineEdit")
@@ -519,6 +529,8 @@ class Ui_MainWindow(QObject):
         sizePolicy.setHeightForWidth(self.pushButton_6.sizePolicy().hasHeightForWidth())
         self.pushButton_6.setSizePolicy(sizePolicy)
         self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_6.clicked.connect(self.read_clicked)
+        self.pushButton_6.setStyleSheet("background-color: green")
         self.verticalLayout_3.addWidget(self.pushButton_6)
         self.tabWidget.addTab(self.tab_read, "")
 
@@ -550,7 +562,6 @@ class Ui_MainWindow(QObject):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lineEdit_21.sizePolicy().hasHeightForWidth())
         self.lineEdit_21.setSizePolicy(sizePolicy)
-        self.lineEdit_21.setReadOnly(True)
         self.lineEdit_21.setObjectName("lineEdit_21")
         self.horizontalLayout_7.addWidget(self.lineEdit_21)
         self.verticalLayout_7.addWidget(self.widget_9)
@@ -561,6 +572,7 @@ class Ui_MainWindow(QObject):
         sizePolicy.setHeightForWidth(self.pushButton_8.sizePolicy().hasHeightForWidth())
         self.pushButton_8.setSizePolicy(sizePolicy)
         self.pushButton_8.setObjectName("pushButton_8")
+        self.pushButton_8.clicked.connect(self.write_clicked)
         self.verticalLayout_7.addWidget(self.pushButton_8)
         self.tabWidget.addTab(self.tab_write, "")
 
@@ -575,16 +587,14 @@ class Ui_MainWindow(QObject):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "ModbusTCP GUI"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "EVC04 ModbusTCP GUI"))
 
         # Connect Tab
-        self.label_3.setText(_translate("MainWindow", "Unit ID"))
         self.label_4.setText(_translate("MainWindow", "Timeout"))
         self.label.setText(_translate("MainWindow", "Host Address"))
         self.label_2.setText(_translate("MainWindow", "Port Number"))
         self.host_edit.setText(_translate("MainWindow", "127.0.0.1"))
         self.port_edit.setText(_translate("MainWindow", "502"))
-        self.unit_id_edit.setText(_translate("MainWindow", "255"))
         self.timeout_edit.setText(_translate("MainWindow", "10"))
         self.pushButton_2.setText(_translate("MainWindow", "Connect"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_connect), _translate("MainWindow", "Connect"))
@@ -627,7 +637,7 @@ class Ui_MainWindow(QObject):
         self.comboBox.setItemText(34, _translate("MainWindow", "Charging Current"))
         self.comboBox.setItemText(35, _translate("MainWindow", "Alive Register"))
         self.lineEdit_19.setPlaceholderText(_translate("MainWindow", "Data"))
-        self.pushButton_6.setText(_translate("MainWindow", "OK"))
+        self.pushButton_6.setText(_translate("MainWindow", "Start"))
         self.pushButton_6.setShortcut(_translate("MainWindow", "Return"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_read), _translate("MainWindow", "Read"))
 
@@ -637,59 +647,79 @@ class Ui_MainWindow(QObject):
         self.comboBox_3.setItemText(2, _translate("MainWindow", "Charging Current"))
         self.comboBox_3.setItemText(3, _translate("MainWindow", "Alive Register"))
         self.lineEdit_21.setPlaceholderText(_translate("MainWindow", "Data"))
-        self.pushButton_8.setText(_translate("MainWindow", "OK"))
+        self.pushButton_8.setText(_translate("MainWindow", "Write"))
         self.pushButton_8.setShortcut(_translate("MainWindow", "Return"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_write), _translate("MainWindow", "Write"))
 
+    def get_register(self, text):
+        return registers.get(text)()
+
     def connect_clicked(self):
         if self.c.is_connected():
-            if self.c.disconnect():
-                self.pushButton_2.setText("Connect")
-                self.pushButton_2.setStyleSheet("background-color: green")
-                self.host_edit.setEnabled(True)
-                self.port_edit.setEnabled(True)
-                self.unit_id_edit.setEnabled(True)
-                self.timeout_edit.setEnabled(True)
-                self.tab_read.setEnabled(False)
-                self.tab_write.setEnabled(False)
+            self.c.disconnect()
+            self.pushButton_2.setText("Connect")
+            self.pushButton_2.setStyleSheet("background-color: green")
+            self.host_edit.setEnabled(True)
+            self.port_edit.setEnabled(True)
+            self.timeout_edit.setEnabled(True)
+            self.tab_read.setEnabled(False)
+            self.tab_write.setEnabled(False)
+            self.lineEdit_19.clear()
+            self.is_reading = False
+            self.pushButton_6.setText("Start")
+            self.pushButton_6.setStyleSheet("background-color: green")
         else:
-            if self.c.connect(self.host_edit.text(), self.port_edit.text(), self.unit_id_edit.text(),
-                              self.timeout_edit.text()):
+            if self.c.connect(self.host_edit.text(), int(self.port_edit.text()), int(self.timeout_edit.text())):
                 self.pushButton_2.setText("Disconnect")
                 self.pushButton_2.setStyleSheet("background-color: red")
                 self.host_edit.setEnabled(False)
                 self.port_edit.setEnabled(False)
-                self.unit_id_edit.setEnabled(False)
                 self.timeout_edit.setEnabled(False)
                 self.tab_read.setEnabled(True)
                 self.tab_write.setEnabled(True)
 
     def read_clicked(self):
-        addr = int(self.lineEdit_18.text())
-        length = int(self.lineEdit_17.text())
-        if self.comboBox.currentText() == :
-            self.read_data = self.c.read_input(addr, length)
+        if self.is_reading:
+            self.is_reading = False
+            self.pushButton_6.setText("Start")
+            self.pushButton_6.setStyleSheet("background-color: green")
         else:
-            self.read_data = self.c.read_holding(addr, length)
-        if self.read_data:
-            text = self.convert_to(self.comboBox.currentText())
-            self.lineEdit_19.setText(text)
+            self.is_reading = True
+            self.pushButton_6.setText("Stop")
+            self.pushButton_6.setStyleSheet("background-color: red")
+            read_thread = threading.Thread(target=self.read_func, daemon=True)
+            read_thread.start()
 
-    def convert_to(self, data_type):
-        if data_type == "uint16":
-            text = " ".join(str(x) for x in self.read_data)
-        elif data_type == "uint32":
-            result = 0
-            multiplier = 0
-            data = self.read_data.copy()
-            data.reverse()
-            for chunk in data:
-                result += int(chunk) * (2 ** multiplier)
-                multiplier += 16
-            text = str(result)
-        elif data_type == "string":
-            text = "".join(chr(x) for x in self.read_data)
+    def write_clicked(self):
+        if self.c.is_connected():
+            self.write_register(self.get_register(self.comboBox_3.currentText()), int(self.lineEdit_21.text()))
+
+    def read_func(self):
+        try:
+            while self.is_reading and self.c.is_connected():
+                reg = self.get_register(self.comboBox.currentText())
+                text = self.read_register(reg)
+                self.lineEdit_19.setText(text)
+                time.sleep(0.25)
+        except Exception as e:
+            qDebug(str(e))
+
+    def read_register(self, reg: Register):
+        text = ""
+        if reg.reg_type == RegisterType.INPUT:
+            read_data = self.c.read_input(reg.addr, reg.nb)
+        else:
+            read_data = self.c.read_holding(reg.addr, reg.nb)
+        if read_data:
+            text = convert_to(reg.data_type, read_data)
         return text
+
+    def write_register(self, reg: Register, data):
+        if reg.data_type == DataType.UINT16:
+            self.c.write(reg.addr, data)
+        else:
+            #TODO
+            pass
 
 
 if __name__ == "__main__":
