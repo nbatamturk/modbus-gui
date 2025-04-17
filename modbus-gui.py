@@ -36,6 +36,7 @@ class SerialNumberRegister(Register):
         self.nb = 25
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.STRING
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class ChargepointIDRegister(Register):
@@ -44,6 +45,7 @@ class ChargepointIDRegister(Register):
         self.nb = 50
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.STRING
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class BrandRegister(Register):
@@ -52,6 +54,7 @@ class BrandRegister(Register):
         self.nb = 10
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.STRING
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class ModelRegister(Register):
@@ -60,6 +63,7 @@ class ModelRegister(Register):
         self.nb = 5
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.STRING
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class FirmwareVersionRegister(Register):
@@ -68,6 +72,7 @@ class FirmwareVersionRegister(Register):
         self.nb = 50
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.STRING
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class DateRegister(Register):
@@ -76,6 +81,7 @@ class DateRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class TimeRegister(Register):
@@ -84,6 +90,7 @@ class TimeRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class ChargepointPowerRegister(Register):
@@ -92,6 +99,7 @@ class ChargepointPowerRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
+        self.socket2_addr = 3400  # EVC10 için 2. soket karşılığı
 
 
 class NumberOfPhasesRegister(Register):
@@ -100,6 +108,15 @@ class NumberOfPhasesRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
+        self.socket2_addr = None  # EVC10 için karşılığı yok
+
+class PhaseSwitch(Register):
+    def __init__(self):
+        self.addr = 405
+        self.nb = 1
+        self.reg_type = RegisterType.HOLDING
+        self.data_type = DataType.UINT16
+        self.socket2_addr = None  # EVC10 için 2. soket karşılığı yok
 
 
 class ChargepointStateRegister(Register):
@@ -108,6 +125,8 @@ class ChargepointStateRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
+        self.socket2_addr = 3000  # EVC10 için 2. soket karşılığı
+
 
 
 class ChargingStateRegister(Register):
@@ -116,7 +135,7 @@ class ChargingStateRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3001  # EVC10 için 2. soket karşılığı
 
 class EquipmentStateRegister(Register):
     def __init__(self):
@@ -124,7 +143,7 @@ class EquipmentStateRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3002  # EVC10 için 2. soket karşılığı
 
 class CableStateRegister(Register):
     def __init__(self):
@@ -132,7 +151,7 @@ class CableStateRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3004  # EVC10 için 2. soket karşılığı
 
 class EvseFaultCodeRegister(Register):
     def __init__(self):
@@ -140,7 +159,7 @@ class EvseFaultCodeRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3006  # EVC10 için 2. soket karşılığı
 
 class CurrentL1Register(Register):
     def __init__(self):
@@ -148,7 +167,7 @@ class CurrentL1Register(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3008  # EVC10 için 2. soket karşılığı
 
 class CurrentL2Register(Register):
     def __init__(self):
@@ -156,7 +175,7 @@ class CurrentL2Register(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3010  # EVC10 için 2. soket karşılığı
 
 class CurrentL3Register(Register):
     def __init__(self):
@@ -164,7 +183,7 @@ class CurrentL3Register(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3012  # EVC10 için 2. soket karşılığı
 
 class VoltageL1Register(Register):
     def __init__(self):
@@ -172,7 +191,7 @@ class VoltageL1Register(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3014  # EVC10 için 2. soket karşılığı
 
 class VoltageL2Register(Register):
     def __init__(self):
@@ -180,7 +199,7 @@ class VoltageL2Register(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3016  # EVC10 için 2. soket karşılığı
 
 class VoltageL3Register(Register):
     def __init__(self):
@@ -188,7 +207,7 @@ class VoltageL3Register(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3018  # EVC10 için 2. soket karşılığı
 
 class ActivePowerTotalRegister(Register):
     def __init__(self):
@@ -196,7 +215,7 @@ class ActivePowerTotalRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3020  # EVC10 için 2. soket karşılığı
 
 class ActivePowerL1Register(Register):
     def __init__(self):
@@ -204,7 +223,7 @@ class ActivePowerL1Register(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3024  # EVC10 için 2. soket karşılığı
 
 class ActivePowerL2Register(Register):
     def __init__(self):
@@ -212,7 +231,7 @@ class ActivePowerL2Register(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3028  # EVC10 için 2. soket karşılığı
 
 class ActivePowerL3Register(Register):
     def __init__(self):
@@ -220,7 +239,7 @@ class ActivePowerL3Register(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3032  # EVC10 için 2. soket karşılığı
 
 class MeterReadingRegister(Register):
     def __init__(self):
@@ -228,7 +247,7 @@ class MeterReadingRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3036  # EVC10 için 2. soket karşılığı
 
 class SessionMaxCurrentRegister(Register):
     def __init__(self):
@@ -236,7 +255,7 @@ class SessionMaxCurrentRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3100  # EVC10 için 2. soket karşılığı
 
 class EvseMinCurrentRegister(Register):
     def __init__(self):
@@ -244,7 +263,7 @@ class EvseMinCurrentRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3102  # EVC10 için 2. soket karşılığı
 
 class EvseMaxCurrentRegister(Register):
     def __init__(self):
@@ -252,7 +271,7 @@ class EvseMaxCurrentRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3104  # EVC10 için 2. soket karşılığı
 
 class CableMaxCurrentRegister(Register):
     def __init__(self):
@@ -260,7 +279,7 @@ class CableMaxCurrentRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT16
-
+        self.socket2_addr = 3106  # EVC10 için 2. soket karşılığı
 
 class SessionEnergyRegister(Register):
     def __init__(self):
@@ -268,7 +287,7 @@ class SessionEnergyRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3502  # EVC10 için 2. soket karşılığı
 
 class SessionStartTimeRegister(Register):
     def __init__(self):
@@ -276,7 +295,7 @@ class SessionStartTimeRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3504  # EVC10 için 2. soket karşılığı
 
 class SessionDurationRegister(Register):
     def __init__(self):
@@ -284,7 +303,7 @@ class SessionDurationRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
-
+        self.socket2_addr = 3508  # EVC10 için 2. soket karşılığı
 
 class SessionEndTimeRegister(Register):
     def __init__(self):
@@ -292,6 +311,15 @@ class SessionEndTimeRegister(Register):
         self.nb = 2
         self.reg_type = RegisterType.INPUT
         self.data_type = DataType.UINT32
+        self.socket2_addr = 3512  # EVC10 için 2. soket karşılığı
+
+class SessionRFIDTagRegister(Register):
+    def __init__(self):
+        self.addr = 1516
+        self.nb = 15
+        self.reg_type = RegisterType.INPUT
+        self.data_type = DataType.STRING
+        self.socket2_addr = 3516  # EVC10 için 2. soket karşılığı
 
 
 class FailsafeCurrentRegister(Register):
@@ -300,6 +328,7 @@ class FailsafeCurrentRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.HOLDING
         self.data_type = DataType.UINT16
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class FailsafeTimeoutRegister(Register):
@@ -308,6 +337,7 @@ class FailsafeTimeoutRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.HOLDING
         self.data_type = DataType.UINT16
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class ChargingCurrentRegister(Register):
@@ -316,6 +346,7 @@ class ChargingCurrentRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.HOLDING
         self.data_type = DataType.UINT16
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 class AliveRegister(Register):
@@ -324,6 +355,7 @@ class AliveRegister(Register):
         self.nb = 1
         self.reg_type = RegisterType.HOLDING
         self.data_type = DataType.UINT16
+        self.socket2_addr = None  # EVC10 için karşılığı yok
 
 
 registers = {
@@ -336,6 +368,7 @@ registers = {
     "Time": TimeRegister,
     "Chargepoint Power": ChargepointPowerRegister,
     "Number of Phases": NumberOfPhasesRegister,
+    "Phase Switch": PhaseSwitch,
     "Chargepoint State": ChargepointStateRegister,
     "Charging State": ChargingStateRegister,
     "Equipment State": EquipmentStateRegister,
@@ -359,6 +392,7 @@ registers = {
     "Session Energy": SessionEnergyRegister,
     "Session Start Time": SessionStartTimeRegister,
     "Session End Time": SessionEndTimeRegister,
+    "Session RFID Tag": SessionRFIDTagRegister,
     "Failsafe Current": FailsafeCurrentRegister,
     "Failsafe Timeout": FailsafeTimeoutRegister,
     "Charging Current": ChargingCurrentRegister,
@@ -388,6 +422,9 @@ class Ui_MainWindow(QObject):
         self.c = Controller()
         self.is_reading = False
 
+    def is_device_evc10(self):
+        return self.radioButton_evc10.isChecked()
+
     def setupUi(self, MainWindow):
         # Main Window
         MainWindow.setObjectName("MainWindow")
@@ -414,6 +451,8 @@ class Ui_MainWindow(QObject):
         self.tab_connect.setObjectName("tab_connect")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.tab_connect)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+
+        # Host/Port/Timeout alanı
         self.widget_2 = QtWidgets.QWidget(self.tab_connect)
         self.widget_2.setObjectName("widget_2")
         self.gridLayout = QtWidgets.QGridLayout(self.widget_2)
@@ -440,6 +479,26 @@ class Ui_MainWindow(QObject):
         self.timeout_edit.setObjectName("lineEdit")
         self.gridLayout.addWidget(self.timeout_edit, 3, 4, 1, 1)
         self.verticalLayout_2.addWidget(self.widget_2)
+
+        # 📌 Device seçimi için radio button grubu (YAN YANA)
+        self.widget_device = QtWidgets.QWidget(self.tab_connect)
+        self.widget_device.setObjectName("widget_device")
+        self.device_layout = QtWidgets.QHBoxLayout(self.widget_device)
+        self.device_layout.setObjectName("device_layout")
+
+        self.label_device = QtWidgets.QLabel(self.widget_device)
+        self.device_layout.addWidget(self.label_device)
+
+        self.radioButton_evc04 = QtWidgets.QRadioButton(self.widget_device)
+        self.radioButton_evc04.setChecked(True)
+        self.device_layout.addWidget(self.radioButton_evc04)
+
+        self.radioButton_evc10 = QtWidgets.QRadioButton(self.widget_device)
+        self.device_layout.addWidget(self.radioButton_evc10)
+
+        self.verticalLayout_2.addWidget(self.widget_device)
+
+        # Connect butonu
         self.widget = QtWidgets.QWidget(self.tab_connect)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -456,7 +515,9 @@ class Ui_MainWindow(QObject):
         self.pushButton_2.clicked.connect(self.connect_clicked)
         self.horizontalLayout.addWidget(self.pushButton_2)
         self.verticalLayout_2.addWidget(self.widget)
+
         self.tabWidget.addTab(self.tab_connect, "")
+
 
         # Read Tab
         self.tab_read = QtWidgets.QWidget()
@@ -471,6 +532,8 @@ class Ui_MainWindow(QObject):
         sizePolicy.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
         self.comboBox.setSizePolicy(sizePolicy)
         self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
@@ -551,6 +614,7 @@ class Ui_MainWindow(QObject):
         self.comboBox_3.addItem("")
         self.comboBox_3.addItem("")
         self.comboBox_3.addItem("")
+        self.comboBox_3.addItem("")
         self.verticalLayout_7.addWidget(self.comboBox_3)
         self.widget_9 = QtWidgets.QWidget(self.tab_write)
         self.widget_9.setObjectName("widget_9")
@@ -587,7 +651,7 @@ class Ui_MainWindow(QObject):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "EVC04 ModbusTCP GUI"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "EVC ModbusTCP GUI"))
 
         # Connect Tab
         self.label_4.setText(_translate("MainWindow", "Timeout"))
@@ -595,7 +659,10 @@ class Ui_MainWindow(QObject):
         self.label_2.setText(_translate("MainWindow", "Port Number"))
         self.host_edit.setText(_translate("MainWindow", "127.0.0.1"))
         self.port_edit.setText(_translate("MainWindow", "502"))
-        self.timeout_edit.setText(_translate("MainWindow", "10"))
+        self.timeout_edit.setText(_translate("MainWindow", "10000"))
+        self.label_device.setText(_translate("MainWindow", "Device:"))
+        self.radioButton_evc04.setText(_translate("MainWindow", "EVC04"))
+        self.radioButton_evc10.setText(_translate("MainWindow", "EVC10"))
         self.pushButton_2.setText(_translate("MainWindow", "Connect"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_connect), _translate("MainWindow", "Connect"))
 
@@ -609,33 +676,36 @@ class Ui_MainWindow(QObject):
         self.comboBox.setItemText(6, _translate("MainWindow", "Time"))
         self.comboBox.setItemText(7, _translate("MainWindow", "Chargepoint Power"))
         self.comboBox.setItemText(8, _translate("MainWindow", "Number of Phases"))
-        self.comboBox.setItemText(9, _translate("MainWindow", "Chargepoint State"))
-        self.comboBox.setItemText(10, _translate("MainWindow", "Charging State"))
-        self.comboBox.setItemText(11, _translate("MainWindow", "Equipment State"))
-        self.comboBox.setItemText(12, _translate("MainWindow", "Cable State"))
-        self.comboBox.setItemText(13, _translate("MainWindow", "EVSE Fault Code"))
-        self.comboBox.setItemText(14, _translate("MainWindow", "Current L1"))
-        self.comboBox.setItemText(15, _translate("MainWindow", "Current L2"))
-        self.comboBox.setItemText(16, _translate("MainWindow", "Current L3"))
-        self.comboBox.setItemText(17, _translate("MainWindow", "Voltage L1"))
-        self.comboBox.setItemText(18, _translate("MainWindow", "Voltage L2"))
-        self.comboBox.setItemText(19, _translate("MainWindow", "Voltage L3"))
-        self.comboBox.setItemText(20, _translate("MainWindow", "Active Power Total"))
-        self.comboBox.setItemText(21, _translate("MainWindow", "Active Power L1"))
-        self.comboBox.setItemText(22, _translate("MainWindow", "Active Power L2"))
-        self.comboBox.setItemText(23, _translate("MainWindow", "Active Power L3"))
-        self.comboBox.setItemText(24, _translate("MainWindow", "Meter Reading"))
-        self.comboBox.setItemText(25, _translate("MainWindow", "Session Max Current"))
-        self.comboBox.setItemText(26, _translate("MainWindow", "EVSE Min Current"))
-        self.comboBox.setItemText(27, _translate("MainWindow", "EVSE Max Current"))
-        self.comboBox.setItemText(28, _translate("MainWindow", "Cable Max Current"))
-        self.comboBox.setItemText(29, _translate("MainWindow", "Session Energy"))
-        self.comboBox.setItemText(30, _translate("MainWindow", "Session Start Time"))
-        self.comboBox.setItemText(31, _translate("MainWindow", "Session End Time"))
-        self.comboBox.setItemText(32, _translate("MainWindow", "Failsafe Current"))
-        self.comboBox.setItemText(33, _translate("MainWindow", "Failsafe Timeout"))
-        self.comboBox.setItemText(34, _translate("MainWindow", "Charging Current"))
-        self.comboBox.setItemText(35, _translate("MainWindow", "Alive Register"))
+        self.comboBox.setItemText(9, _translate("MainWindow", "Phase Switch"))
+        self.comboBox.setItemText(10, _translate("MainWindow", "Chargepoint State"))
+        self.comboBox.setItemText(11, _translate("MainWindow", "Charging State"))
+        self.comboBox.setItemText(12, _translate("MainWindow", "Equipment State"))
+        self.comboBox.setItemText(13, _translate("MainWindow", "Cable State"))
+        self.comboBox.setItemText(14, _translate("MainWindow", "EVSE Fault Code"))
+        self.comboBox.setItemText(15, _translate("MainWindow", "Current L1"))
+        self.comboBox.setItemText(16, _translate("MainWindow", "Current L2"))
+        self.comboBox.setItemText(17, _translate("MainWindow", "Current L3"))
+        self.comboBox.setItemText(18, _translate("MainWindow", "Voltage L1"))
+        self.comboBox.setItemText(19, _translate("MainWindow", "Voltage L2"))
+        self.comboBox.setItemText(20, _translate("MainWindow", "Voltage L3"))
+        self.comboBox.setItemText(21, _translate("MainWindow", "Active Power Total"))
+        self.comboBox.setItemText(22, _translate("MainWindow", "Active Power L1"))
+        self.comboBox.setItemText(23, _translate("MainWindow", "Active Power L2"))
+        self.comboBox.setItemText(24, _translate("MainWindow", "Active Power L3"))
+        self.comboBox.setItemText(25, _translate("MainWindow", "Meter Reading"))
+        self.comboBox.setItemText(26, _translate("MainWindow", "Session Max Current"))
+        self.comboBox.setItemText(27, _translate("MainWindow", "EVSE Min Current"))
+        self.comboBox.setItemText(28, _translate("MainWindow", "EVSE Max Current"))
+        self.comboBox.setItemText(29, _translate("MainWindow", "Cable Max Current"))
+        self.comboBox.setItemText(30, _translate("MainWindow", "Session Energy"))
+        self.comboBox.setItemText(31, _translate("MainWindow", "Session Start Time"))
+        self.comboBox.setItemText(32, _translate("MainWindow", "Session End Time"))
+        self.comboBox.setItemText(33, _translate("MainWindow", "Session RFID Tag"))
+        self.comboBox.setItemText(34, _translate("MainWindow", "Failsafe Current"))
+        self.comboBox.setItemText(35, _translate("MainWindow", "Failsafe Timeout"))
+        self.comboBox.setItemText(36, _translate("MainWindow", "Charging Current"))
+        self.comboBox.setItemText(37, _translate("MainWindow", "Alive Register"))
+
         self.lineEdit_19.setPlaceholderText(_translate("MainWindow", "Data"))
         self.pushButton_6.setText(_translate("MainWindow", "Start"))
         self.pushButton_6.setShortcut(_translate("MainWindow", "Return"))
@@ -646,6 +716,7 @@ class Ui_MainWindow(QObject):
         self.comboBox_3.setItemText(1, _translate("MainWindow", "Failsafe Timeout"))
         self.comboBox_3.setItemText(2, _translate("MainWindow", "Charging Current"))
         self.comboBox_3.setItemText(3, _translate("MainWindow", "Alive Register"))
+        self.comboBox_3.setItemText(4, _translate("MainWindow", "Phase Switch"))
         self.lineEdit_21.setPlaceholderText(_translate("MainWindow", "Data"))
         self.pushButton_8.setText(_translate("MainWindow", "Write"))
         self.pushButton_8.setShortcut(_translate("MainWindow", "Return"))
@@ -710,9 +781,44 @@ class Ui_MainWindow(QObject):
             read_data = self.c.read_input(reg.addr, reg.nb)
         else:
             read_data = self.c.read_holding(reg.addr, reg.nb)
+
         if read_data:
-            text = convert_to(reg.data_type, read_data)
+            text = convert_to(reg.data_type, list(read_data))
+        else:
+            return "N/A"
+
+        # EVC10 için Socket 2'yi dene
+        if self.is_device_evc10() and hasattr(reg, "socket2_addr") and reg.socket2_addr:
+            second_addr = reg.socket2_addr
+            try:
+                if reg.reg_type == RegisterType.INPUT:
+                    read_data2 = self.c.read_input(second_addr, reg.nb)
+                else:
+                    read_data2 = self.c.read_holding(second_addr, reg.nb)
+
+                if (
+                    isinstance(read_data2, list)
+                    and len(read_data2) > 0
+                    and (
+                        reg.data_type != DataType.STRING or any(x != 0 for x in read_data2)
+                    )
+                ):
+                    text2 = convert_to(reg.data_type, read_data2)
+                    if isinstance(text2, str) and text2.strip():
+                        text = f"Socket 1: {text} | Socket 2: {text2}"
+
+            except Exception:
+                pass
+
         return text
+
+
+
+
+
+
+
+
 
     def write_register(self, reg: Register, data):
         if reg.data_type == DataType.UINT16:
